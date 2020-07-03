@@ -3,6 +3,11 @@ package com.github.Mealf.util;
 public class ConvertIP {
 	
 	/******toString******/
+	/**
+	 * @param ip
+	 * @return
+	 * 
+	 */
 	public static String toString(int ip) {
 		String ip_str = "";
 
@@ -17,6 +22,11 @@ public class ConvertIP {
 		return ip_str;
 	}
 
+	/**
+	 * if error return ""
+	 * @param ip
+	 * @return
+	 */
 	public static String toString(byte[] ip) {
 		String ip_str = "";
 
@@ -34,6 +44,11 @@ public class ConvertIP {
 	}
 
 	/******toInt******/
+	/**
+	 * if error return 0
+	 * @param ip
+	 * @return
+	 */
 	public static int toInt(String ip) {
 		int ip_num = 0;
 
@@ -53,7 +68,12 @@ public class ConvertIP {
 
 		return ip_num;
 	}
-
+	
+	/**
+	 * if error return 0
+	 * @param ip
+	 * @return
+	 */
 	public static int toInt(byte[] ip) {
 		int ip_num = 0;
 
@@ -66,6 +86,11 @@ public class ConvertIP {
 	}
 
 	/******toByteArray******/
+	/**
+	 * if error return null
+	 * @param ip
+	 * @return
+	 */
 	public static byte[] toByteArray(String ip) {
 		byte[] ip_byte = new byte[4];
 
@@ -85,6 +110,11 @@ public class ConvertIP {
 		return ip_byte;
 	}
 
+	/**
+	 * 
+	 * @param ip
+	 * @return
+	 */
 	public static byte[] toByteArray(int ip) {
 		byte[] ip_byte = new byte[4];
 
