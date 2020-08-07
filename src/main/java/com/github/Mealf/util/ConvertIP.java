@@ -23,7 +23,7 @@ public class ConvertIP {
 	}
 
 	/**
-	 * if error return ""
+	 * if error return null
 	 * @param ip
 	 * @return
 	 */
@@ -31,7 +31,7 @@ public class ConvertIP {
 		String ip_str = "";
 
 		if (ip.length != 4)
-			return "";
+			return null;
 
 		for (int i = 0; i < 4; i++) {
 			ip_str += String.valueOf(((int) ip[i]) & 0xFF);
@@ -43,24 +43,24 @@ public class ConvertIP {
 		return ip_str;
 	}
 
-	/******toInt******/
+	/******toInteger******/
 	/**
-	 * if error return 0
+	 * if error return null
 	 * @param ip
 	 * @return
 	 */
-	public static int toInt(String ip) {
+	public static Integer toInteger(String ip) {
 		int ip_num = 0;
 
 		String[] parts = ip.split("\\.");
 		if (parts.length != 4)
-			return 0;
+			return null;
 
 		int num;
 		for (int i = 0; i < 4; i++) {
 			num = Integer.parseInt(parts[i]);
 			if (num >= 256 || num < 0)
-				return 0;
+				return null;
 
 			ip_num = ip_num << 8;
 			ip_num = ip_num | Integer.parseInt(parts[i]);
@@ -74,11 +74,11 @@ public class ConvertIP {
 	 * @param ip
 	 * @return
 	 */
-	public static int toInt(byte[] ip) {
+	public static Integer toInteger(byte[] ip) {
 		int ip_num = 0;
 
 		if (ip.length != 4)
-			return 0;
+			return null;
 
 		ip_num = (ip[0] & 0xFF) << 24 | (ip[1] & 0xFF) << 16 | (ip[2] & 0xFF) << 8 | (ip[3] & 0xFF);
 
