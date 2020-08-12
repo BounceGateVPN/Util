@@ -47,4 +47,20 @@ public class ConvertIPTest {
 		assertArrayEquals(expected, ConvertIP.toByteArray("192.168.0."));
 		assertArrayEquals(expected, ConvertIP.toByteArray("192.168.0.256"));
 	}
+	
+	@Test
+	public void testIsValidInput() {
+		boolean expected = false;
+		
+		String str = null;
+		assertEquals(expected, ConvertIP.isValidIP(str));
+		assertEquals(expected, ConvertIP.isValidIP("192.168.1."));
+		assertEquals(expected, ConvertIP.isValidIP("192.168.1.256"));
+		assertEquals(expected, ConvertIP.isValidIP("192.168.-1.255"));
+		assertEquals(expected, ConvertIP.isValidIP("aaa.bbb.ccc.ddd"));
+		
+		byte[] byteArr = null;
+		assertEquals(expected, ConvertIP.isValidIP(byteArr));
+		assertEquals(expected, ConvertIP.isValidIP(new byte[] {10,20,30,}));
+	}
 }
