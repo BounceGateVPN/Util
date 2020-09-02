@@ -1,14 +1,17 @@
 package com.github.Mealf.util;
 
 public class ConvertIP {
-	
-	/******toString******/
+
+	/****** toString ******/
 	/**
 	 * @param ip
 	 * @return
 	 * 
 	 */
 	public static String toString(int ip) {
+		if(!isValidIP(ip))
+			return null;
+		
 		String ip_str = "";
 
 		for (int i = 0; i < 4; i++) {
@@ -23,16 +26,17 @@ public class ConvertIP {
 	}
 
 	/**
-	 * if error return ""
+	 * if error return null
+	 * 
 	 * @param ip
 	 * @return
 	 */
 	public static String toString(byte[] ip) {
+		if (!isValidIP(ip))
+			return null;
+		
 		String ip_str = "";
-
-		if (ip.length != 4)
-			return "";
-
+		
 		for (int i = 0; i < 4; i++) {
 			ip_str += String.valueOf(((int) ip[i]) & 0xFF);
 
@@ -43,67 +47,60 @@ public class ConvertIP {
 		return ip_str;
 	}
 
-	/******toInt******/
+	/****** toInteger ******/
 	/**
-	 * if error return 0
+	 * if error return null
+	 * 
 	 * @param ip
 	 * @return
 	 */
-	public static int toInt(String ip) {
+	public static Integer toInteger(String ip) {
+		if(!isValidIP(ip))
+			return null;
+		
 		int ip_num = 0;
-
 		String[] parts = ip.split("\\.");
-		if (parts.length != 4)
-			return 0;
 
-		int num;
 		for (int i = 0; i < 4; i++) {
-			num = Integer.parseInt(parts[i]);
-			if (num >= 256 || num < 0)
-				return 0;
-
 			ip_num = ip_num << 8;
 			ip_num = ip_num | Integer.parseInt(parts[i]);
 		}
 
 		return ip_num;
 	}
-	
+
 	/**
 	 * if error return 0
+	 * 
 	 * @param ip
 	 * @return
 	 */
-	public static int toInt(byte[] ip) {
+	public static Integer toInteger(byte[] ip) {
+		if(!isValidIP(ip))
+			return null;
+		
 		int ip_num = 0;
-
-		if (ip.length != 4)
-			return 0;
-
 		ip_num = (ip[0] & 0xFF) << 24 | (ip[1] & 0xFF) << 16 | (ip[2] & 0xFF) << 8 | (ip[3] & 0xFF);
 
 		return ip_num;
 	}
 
-	/******toByteArray******/
+	/****** toByteArray ******/
 	/**
 	 * if error return null
+	 * 
 	 * @param ip
 	 * @return
 	 */
 	public static byte[] toByteArray(String ip) {
+		if(!isValidIP(ip))
+			return null;
+		
 		byte[] ip_byte = new byte[4];
 
 		String[] parts = ip.split("\\.");
-		if (parts.length != 4)
-			return null;
 
-		int num;
 		for (int i = 0; i < 4; i++) {
-			num = Integer.parseInt(parts[i]);
-			if (num >= 256 || num < 0)
-				return null;
-
 			ip_byte[i] = (byte) (Integer.parseInt(parts[i]) & 0xFF);
 		}
 
@@ -116,6 +113,9 @@ public class ConvertIP {
 	 * @return
 	 */
 	public static byte[] toByteArray(int ip) {
+		if(!isValidIP(ip))
+			return null;
+		
 		byte[] ip_byte = new byte[4];
 
 		for (int i = 3; i >= 0; i--) {
@@ -124,5 +124,40 @@ public class ConvertIP {
 		}
 
 		return ip_byte;
+	}
+
+	public static boolean isValidIP(String ip) {
+		if (ip == null)
+			return false;
+
+		/* check string consists of four parts */
+		String[] parts = ip.split("\\.");
+		if (parts.length != 4)
+			return false;
+
+		int num;
+		/* check every part value is in range 0~255 */
+		for (String part : parts) {
+			try {
+				num = Integer.parseInt(part);
+				if (num >= 256 || num < 0)
+					return false;
+
+			} catch (NumberFormatException nfe) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	public static boolean isValidIP(byte[] ip) {
+		if (ip == null || ip.length != 4)
+			return false;
+
+		return true;
+	}
+	public static boolean isValidIP(int ip) {
+		return true;
 	}
 }
