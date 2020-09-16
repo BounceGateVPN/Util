@@ -14,6 +14,7 @@ public class Event {
 				this.text = "[ERROR] ";
 			else
 				this.text = "[WARN] ";
+			this.text+=text;
 		}
 	}
 	
